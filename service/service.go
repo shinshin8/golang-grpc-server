@@ -1,12 +1,10 @@
-package main
+package service
 
 import (
 	"context"
 	"fmt"
 	pb "github.com/shinshin8/golang-grpc-protobuf/gen/go/protobuf"
-	"google.golang.org/protobuf/types/known/emptypb"
 )
-
 
 type service struct {
 	pb.UnimplementedGrpcServiceServer
@@ -23,9 +21,9 @@ func (s *service) FindEmployee(ctx context.Context, req *pb.FindEmployeeRequest)
 
 	if id == 1 {
 		return &pb.FindEmployeeResponse{
-			Enployee: &pb.Employee{
-				ID: 1,
-				Name: "john",
+			Employee: &pb.Employee{
+				ID:     1,
+				Name:   "john",
 				Status: pb.StatusType_STAFF,
 			},
 		}, nil
@@ -33,22 +31,22 @@ func (s *service) FindEmployee(ctx context.Context, req *pb.FindEmployeeRequest)
 	return nil, fmt.Errorf("cannnot find employee")
 }
 
-func (s *service) ListEmployee(context.Context, *emptypb.Empty) (*pb.ListEmployeeResponse, error) {
+func (s *service) ListEmployee(ctx context.Context, _ *pb.ListEmployeeRequest) (*pb.ListEmployeeResponse, error) {
 	return &pb.ListEmployeeResponse{
 		Employees: []*pb.Employee{
 			{
-				ID: 1,
-				Name: "john",
+				ID:     1,
+				Name:   "john",
 				Status: pb.StatusType_STAFF,
 			},
 			{
-				ID: 2,
-				Name: "emily",
+				ID:     2,
+				Name:   "emily",
 				Status: pb.StatusType_MANAGER,
 			},
 			{
-				ID: 3,
-				Name: "mike",
+				ID:     3,
+				Name:   "mike",
 				Status: pb.StatusType_PART_TIME,
 			},
 		},
